@@ -187,4 +187,39 @@ const questions = () => {
             name: 'confirm'
         },
     ])
+    .then((answers) => {
+        if (answers.employeeRole === Employee.Manager) {
+            const manager = new Manager(
+                answers.employeeName,
+                answers.employeeId,
+                answers.employeeEmail,
+                answers.officerNumber,
+            );
+            employees.push(manager);
+        }
+        if (answers.employeeRole === Employee.Engineer) {
+            const engineer = new Engineer(
+                answers.employeeName,
+                answers.employeeId,
+                answers.employeeEmail,
+                answers.gitHubLink,
+            );
+            employees.push(engineer);
+        }
+        if (answers.employeeRole === Employee.Intern) {
+            const intern = new Intern(
+                answers.employeeName,
+                answers.employeeId,
+                answers.employeeEmail,
+                answers.internsSchool,
+            );
+            employees.push(intern);
+        }
+    });
+};
+
+function init() {
+    questions();
 }
+
+init();
