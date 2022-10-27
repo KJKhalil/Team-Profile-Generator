@@ -1,4 +1,4 @@
-//
+// Sets up inquirer and the required classes/roles.
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Manager = require('./lib/manager.js');
@@ -14,6 +14,7 @@ const Employee = {
 
 let employees = [];
 
+// Creates the html skeleton which includes the jsdelivr and bootstrap links. ${pushEmployeeInfo(employees)} Is where the employeeInfo cards get pushed to.
 const createHTML = (employees) => {
     return `
     <!DOCTYPE html>
@@ -49,6 +50,7 @@ const createHTML = (employees) => {
     </html>`;
 };
 
+// This is the command that pushes employeeInfo into createHTML
 const pushEmployeeInfo = (employees) => {
     let employeesHTML = []
     employees.forEach((e) => {
@@ -58,6 +60,7 @@ const pushEmployeeInfo = (employees) => {
     return employeesHTML.join('');
 };
 
+// creates the emplyeeInfo cards in html to be pushed into the html skeleton.
 const employeeInfo = (e) => {
     let roleInfoChange;
     let headerColor = '';
@@ -118,12 +121,14 @@ function writeToFile (fileName, data) {
     });
 }
 
+// Makes sure you fill in all the answers so all the required information gets put into the html.
 const validateAnswer = {
     required: (response) => {
         return response ? true : console.error('Answer Required');
     }
 };
 
+// These are the questions required for the employeeInfo cards. The .then commands adjust the questions for each different role.
 const questions = () => {
     inquirer.prompt([
         {
