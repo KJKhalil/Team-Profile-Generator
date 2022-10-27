@@ -54,4 +54,52 @@ const pushEmployeeInfo = (employees) => {
     });
 
     return employeesHTML.join('');
-}
+};
+
+const employeeInfo = (e) => {
+    let roleInfoChange;
+    let headerColor = '';
+    switch (e.getRole()) {
+        case Employee.Manager:
+            roleInfoChange = `Office: ${e.officeNumber}`;
+            headerColor = 'bg-primary text-light';
+            break;
+            
+        case Employee.Engineer:
+            roleInfoChange = `GitHub: ${e.getGitHub}`;
+            headerColor = 'bg-primary text-light';
+            break;
+
+        case Employee.Intern:
+            roleInfoChange = `School: ${e.getSchool}`;
+            headerColor = 'bg-primary text-light';
+            break;
+    }
+
+    return `
+    <div class= "col-sm col-lg">
+        <div> class= 'card'>
+
+            <div class= 'card-header ${headerColor}'>
+                <h2 class= 'card-title'>${e.getName()}</h2>
+            </div>
+
+            <div class= 'card-body'>
+                <ul class= 'list-group'>
+                    <li class= 'list-group-item'>
+                        Role: <strong>${e.getRole()}</strong>
+                    </li>
+                    <li class= 'list-group-item'>
+                        Id: ${e.getId()}
+                    </li>
+                    <li class= 'list-group-item'>
+                        <a href= 'mailto: ${e.getEmail()}'>${e.getEmail()}</a>
+                    </li>
+                    <li class= 'list-group-item'>
+                        ${roleInfoChange}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>`
+};
