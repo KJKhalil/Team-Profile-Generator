@@ -66,7 +66,7 @@ const employeeInfo = (e) => {
             break;
             
         case Employee.Engineer:
-            roleInfoChange = `GitHub: ${e.getGitHub}`;
+            roleInfoChange = `GitHub: ${e.getGithub}`;
             headerColor = 'bg-primary text-light';
             break;
 
