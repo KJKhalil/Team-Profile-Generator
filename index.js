@@ -1,3 +1,4 @@
+//
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Manager = require('./lib/manager.js');
@@ -214,6 +215,14 @@ const questions = () => {
                 answers.internsSchool,
             );
             employees.push(intern);
+        }
+        {
+        if (answers.confirm === true) {
+            questions();
+        }
+        else {
+            writeToFile('./dist/index.html', createHTML(employees));
+        }
         }
     });
 };
