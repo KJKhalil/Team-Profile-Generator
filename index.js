@@ -34,7 +34,7 @@ const createHTML = (employees) => {
         </head>
     
         <body>
-            <div> class= 'container p-4'>
+            <div class= 'container p-4'>
                 <div class= 'row'>
                     <h1 class= 'text-center'>Team Info</h1>
                 </div>
@@ -71,19 +71,19 @@ const employeeInfo = (e) => {
             break;
             
         case Employee.Engineer:
-            roleInfoChange = `GitHub: ${e.getGithub}`;
+            roleInfoChange = `GitHub: ${e.getGithub()}`;
             headerColor = 'bg-primary text-light';
             break;
 
         case Employee.Intern:
-            roleInfoChange = `School: ${e.getSchool}`;
+            roleInfoChange = `School: ${e.getSchool()}`;
             headerColor = 'bg-primary text-light';
             break;
     }
 
     return `
     <div class= "col-sm col-lg">
-        <div> class= 'card'>
+        <div class= 'card'>
 
             <div class= 'card-header ${headerColor}'>
                 <h2 class= 'card-title'>${e.getName()}</h2>
@@ -133,13 +133,13 @@ const questions = () => {
     inquirer.prompt([
         {
             type: 'list',
-            message: 'What Role Is This Employee?',
+            message: 'What Role Is This Employee?:',
             name: 'employeeRole',
             choices: [new inquirer.Separator(), Employee.Manager, Employee.Engineer, Employee.Intern],
         },
         {
             type: 'input',
-            message: 'What Is The Name Of This Employee',
+            message: 'What Is The Name Of This Employee:',
             name: 'employeeName',
             validate: (response) => {
                 return validateAnswer.required(response);
@@ -147,7 +147,7 @@ const questions = () => {
         },
         {
             type: 'input',
-            message: 'What Is The Id Of This Employee',
+            message: 'What Is The Id Of This Employee:',
             name: 'employeeId',
             validate: (response) => {
                 return validateAnswer.required(response);
@@ -155,7 +155,7 @@ const questions = () => {
         },
         {
             type: 'input',
-            message: 'What Is The Email Address Of This Employee',
+            message: 'What Is The Email Address Of This Employee:',
             name: 'employeeEmail',
             validate: (response) => {
                 return validateAnswer.required(response);
@@ -163,7 +163,7 @@ const questions = () => {
         },
         {
             type: 'input',
-            message: 'What Is The Office Number For The Manager',
+            message: 'What Is The Office Number For The Manager:',
             name: 'officeNumber',
             when: (answers) => answers.employeeRole === Employee.Manager,
             validate: (response) => {
@@ -172,8 +172,8 @@ const questions = () => {
         },
         {
             type: 'input',
-            message: 'GitHub Link For The Engineer(s)',
-            name: 'gitHubLink',
+            message: 'GitHub Username For The Engineer(s):',
+            name: 'username',
             when: (answers) => answers.employeeRole === Employee.Engineer,
             validate: (response) => {
                 return validateAnswer.required(response);
@@ -181,7 +181,7 @@ const questions = () => {
         },
         {
             type: 'input',
-            message: 'What School Does The Intern Go To',
+            message: 'What School Does The Intern Go To:',
             name: 'internsSchool',
             when: (answers) => answers.employeeRole === Employee.Intern,
             validate: (response) => {
@@ -190,7 +190,7 @@ const questions = () => {
         },
         {
             type: 'confirm',
-            message: 'Do You Have Any More Employees To Add To Your Team',
+            message: 'Do You Have Any More Employees To Add To Your Team:',
             name: 'confirm'
         },
     ])
@@ -200,7 +200,7 @@ const questions = () => {
                 answers.employeeName,
                 answers.employeeId,
                 answers.employeeEmail,
-                answers.officerNumber,
+                answers.officeNumber,
             );
             employees.push(manager);
         }
@@ -209,7 +209,7 @@ const questions = () => {
                 answers.employeeName,
                 answers.employeeId,
                 answers.employeeEmail,
-                answers.gitHubLink,
+                answers.username,
             );
             employees.push(engineer);
         }
