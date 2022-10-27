@@ -103,3 +103,88 @@ const employeeInfo = (e) => {
         </div>
     </div>`
 };
+
+function writeToFile (fileName, data) {
+    fs.writeFile(fileName, data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        else {
+            console.log('Your Team Profile Has Been Created.')
+        }
+    });
+}
+
+const validateAnswer = {
+    required: (response) => {
+        return response ? true : console.error('Answer Required');
+    }
+};
+
+const questions = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'What Role Is This Employee?',
+            name: 'employeeRole',
+            choices: [new inquirer.Separator(), Employee.Manager, Employee.Engineer, Employee.Intern],
+        },
+        {
+            type: 'input',
+            message: 'What Is The Name Of This Employee',
+            name: 'employeeName',
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'input',
+            message: 'What Is The Id Of This Employee',
+            name: 'employeeId',
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'input',
+            message: 'What Is The Email Address Of This Employee',
+            name: 'employeeEmail',
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'input',
+            message: 'What Is The Office Number For The Manager',
+            name: 'officeNumber',
+            when: (answers) => answers.employeeRole === Employee.Manager,
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'input',
+            message: 'GitHub Link For The Engineer(s)',
+            name: 'gitHubLink',
+            when: (answers) => answers.employeeRole === Employee.Engineer,
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'input',
+            message: 'What School Does The Intern Go To',
+            name: 'internsSchool',
+            when: (answers) => answers.employeeRole === Employee.Intern,
+            validate: (response) => {
+                return validateAnswer.required(response);
+            },
+        },
+        {
+            type: 'confirm',
+            message: 'Do You Have Any More Employees To Add To Your Team',
+            name: 'confirm'
+        },
+    ])
+}
